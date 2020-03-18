@@ -21,7 +21,7 @@ let appData = {
     expenses: {},
     optionalExpenses: {},
     income: [],
-    savings: false
+    savings: true
 }
 
 function chooseExpenses() {
@@ -40,21 +40,55 @@ function chooseExpenses() {
 
 chooseExpenses();
 
-appData.moneyPerDay = (appData.budget / 30).toFixed();
+
+function detectDayBudget() {
+    appData.moneyPerDay = (appData.budget / 30).toFixed();
+    alert("Ваш бюджет на 1 день: " + appData.moneyPerDay + " рублей");
+}
+
+detectDayBudget();
 
 console.log(money);
 console.log(time);
 console.log(appData);
 
-alert("Ваш бюджет на 1 день: " + appData.moneyPerDay + " рублей");
-
-if (appData.moneyPerDay < 100) {
-    console.log("Минимальное значение достатка");
-} else if (appData.moneyPerDay >= 100 && appData.moneyPerDay < 2000) {
-    console.log("Среднее значение достатка");
-} else if (appData.moneyPerDay > 2000) {
-    console.log("Большое значение достатка");
+function detectLevel() {
+    if (appData.moneyPerDay < 100) {
+        console.log("Минимальное значение достатка");
+    } else if (appData.moneyPerDay >= 100 && appData.moneyPerDay < 2000) {
+        console.log("Среднее значение достатка");
+    } else if (appData.moneyPerDay > 2000) {
+        console.log("Большое значение достатка");
+    }
 }
+
+function checkSaving() {
+    if (appData.savings == true) {
+        let save = +prompt("Какова сумма накоплений?"),
+            percent = +prompt("Под какой процент?");
+
+        appData.monthIncome = save / 100 * percent;
+        alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
+    }
+}
+
+checkSaving();
+
+// Урок 3
+
+let optionalExpenses = {};
+
+function chooseOptExpenses () {
+    for (let i = 1; i < 4; i++) {
+        let a = prompt("Статья необязательных расходов?", "");
+        while (a == "" || a == null) {
+            a = prompt("Статья необязательных расходов?");
+        }
+        optionalExpenses.i = a;
+    }
+}
+
+chooseOptExpenses();
 
 // Урок 2
 
