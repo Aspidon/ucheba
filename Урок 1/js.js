@@ -21,74 +21,75 @@ let appData = {
     expenses: {},
     optionalExpenses: {},
     income: [],
-    savings: true
-}
+    savings: true,
+    chooseExpenses: function () {
+        for (let i = 0; i < 2; i++) {
+            let a = prompt("Введите обязательную статью расходов в этом месяце", ""),
+                b = +prompt("Во сколько обойдется?", "");
 
-function chooseExpenses() {
-    for (let i = 0; i < 2; i++) {
-        let a = prompt("Введите обязательную статью расходов в этом месяце", ""),
-            b = +prompt("Во сколько обойдется?", "");
-
-        if (typeof (a) === 'string' && typeof (a) != null && typeof (b) != null && a != '' && b != '' && a.length < 50) {
-            console.log("done");
-            appData.expenses[a] = b;
-        } else {
-            i = i - 1;
+            if (typeof (a) === 'string' && typeof (a) != null && typeof (b) != null && a != '' && b != '' && a.length < 50) {
+                console.log("done");
+                appData.expenses[a] = b;
+            } else {
+                i = i - 1;
+            }
         }
+    },
+    detectDayBudget: function () {
+        appData.moneyPerDay = (appData.budget / 30).toFixed();
+        alert("Ваш бюджет на 1 день: " + appData.moneyPerDay + " рублей");
+    },
+    detectLevel: function () {
+        if (appData.moneyPerDay < 100) {
+            console.log("Минимальное значение достатка");
+        } else if (appData.moneyPerDay >= 100 && appData.moneyPerDay < 2000) {
+            console.log("Среднее значение достатка");
+        } else if (appData.moneyPerDay > 2000) {
+            console.log("Большое значение достатка");
+        }
+    },
+    checkSaving: function () {
+        if (appData.savings == true) {
+            let save = +prompt("Какова сумма накоплений?"),
+                percent = +prompt("Под какой процент?");
+
+            appData.monthIncome = save / 100 * percent;
+            alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
+        }
+    },
+    chooseOptExpenses: function () {
+        for (let i = 1; i < 4; i++) {
+            let a = prompt("Статья необязательных расходов?", "");
+            while (a == "" || a == null) {
+                a = prompt("Статья необязательных расходов?");
+            }
+            optionalExpenses.i = a;
+        }
+    },
+    chooseIncome: function () {
+        let items = prompt("Что принесет дополнительный доход? (перечислите через запятую)", "");
+        while (items == "" || items == null || typeof (items) != "string") {
+            items = prompt("Что принесет дополнительный доход? (перечислите через запятую)", "");
+        }
+        appData.income = items.split(", ");
+        appData.income.push(prompt("Может чтото еще?"));
+        appData.income.sort();
+
+        appData.income.forEach(function (i1, i2, i3) {
+            i2++
+            console.log(i2 + ". " + i1 + "\n");
+        });
     }
 }
-
-chooseExpenses();
-
-
-function detectDayBudget() {
-    appData.moneyPerDay = (appData.budget / 30).toFixed();
-    alert("Ваш бюджет на 1 день: " + appData.moneyPerDay + " рублей");
-}
-
-detectDayBudget();
 
 console.log(money);
 console.log(time);
 console.log(appData);
 
-function detectLevel() {
-    if (appData.moneyPerDay < 100) {
-        console.log("Минимальное значение достатка");
-    } else if (appData.moneyPerDay >= 100 && appData.moneyPerDay < 2000) {
-        console.log("Среднее значение достатка");
-    } else if (appData.moneyPerDay > 2000) {
-        console.log("Большое значение достатка");
-    }
-}
-
-function checkSaving() {
-    if (appData.savings == true) {
-        let save = +prompt("Какова сумма накоплений?"),
-            percent = +prompt("Под какой процент?");
-
-        appData.monthIncome = save / 100 * percent;
-        alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
-    }
-}
-
-checkSaving();
-
 // Урок 3
 
 let optionalExpenses = {};
 
-function chooseOptExpenses () {
-    for (let i = 1; i < 4; i++) {
-        let a = prompt("Статья необязательных расходов?", "");
-        while (a == "" || a == null) {
-            a = prompt("Статья необязательных расходов?");
-        }
-        optionalExpenses.i = a;
-    }
-}
-
-chooseOptExpenses();
 
 // Урок 2
 
