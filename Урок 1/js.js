@@ -79,6 +79,11 @@ let appData = {
             i2++
             console.log(i2 + ". " + i1 + "\n");
         });
+
+        console.log("Наша программа включает в себя:");
+        for (let key in appData) {
+            console.log("Свойство: " + key + ", Имеет значение: " + appData[key] + ";");
+        };
     }
 }
 
