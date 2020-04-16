@@ -35,15 +35,25 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Таймер 
+    // Таймер ===========================================================================
 
-    let deadLine = '2020-04-16';
+    let deadLine = '2020-04-17';
 
     function getTimeRemaining(endTime) {
         let t = Date.parse(endTime) - Date.parse(new Date()),
-            seconds = Math.floor((t / 1000) % 60),
-            minuts = Math.floor((t / 1000 / 60) % 60),
+            seconds = 0,
+            minuts = 0,
+            hours = 0;
+
+        if (t > 0) {
+            seconds = Math.floor((t / 1000) % 60);
+            minuts = Math.floor((t / 1000 / 60) % 60);
             hours = Math.floor(t / 1000 / 60 / 60);
+        } else {
+            seconds = 0;
+            minuts = 0;
+            hours = 0;
+        }
 
         return {
             'total': t,
@@ -62,6 +72,17 @@ window.addEventListener('DOMContentLoaded', function () {
 
         function updateClock() {
             let t = getTimeRemaining(endTime);
+
+            if (t.hours < 10) {
+                t.hours = '0' + t.hours;
+            }
+            if (t.minuts < 10) {
+                t.minuts = '0' + t.minuts;
+            }
+            if (t.seconds < 10) {
+                t.seconds = '0' + t.seconds;
+            }
+
             hours.textContent = t.hours;
             minuts.textContent = t.minuts;
             seconds.textContent = t.seconds;
