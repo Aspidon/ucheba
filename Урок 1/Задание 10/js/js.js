@@ -96,6 +96,44 @@ window.addEventListener('DOMContentLoaded', function () {
     setClock('timer', deadLine);
 
 
+    // Таймер ===========================================================================
+
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close'),
+        descrBtn2 = document.querySelectorAll('.description-btn'),
+        descrBtn = document.querySelector('.info');
+
+    more.addEventListener('click', function () {
+        overlay.style.display = 'block';
+        this.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';
+    });
+
+    close.addEventListener('click', function () {
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+
+        for (let i = 0; i < descrBtn2.length; i++) {
+            descrBtn2[i].classList.remove('more-splash');
+        }
+
+        document.body.style.overflow = '';
+    });
+
+    descrBtn.addEventListener('click', function (event) {
+        let target = event.target;
+        console.log(target);
+        overlay.style.display = 'block';
+        target.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';
+    });
+
+    console.log(more);
+    console.log(overlay);
+    console.log(close);
+    console.log(descrBtn);
+    console.log(descrBtn2);
 
 
 
