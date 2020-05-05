@@ -96,7 +96,7 @@ window.addEventListener('DOMContentLoaded', function () {
     setClock('timer', deadLine);
 
 
-    // Таймер ===========================================================================
+    // Модальное окно ===========================================================================
 
     let more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
@@ -123,17 +123,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
     descrBtn.addEventListener('click', function (event) {
         let target = event.target;
-        console.log(target);
-        overlay.style.display = 'block';
-        target.classList.add('more-splash');
-        document.body.style.overflow = 'hidden';
+        if (target.classList == "description-btn") {
+            overlay.style.display = 'block';
+            target.classList.add('more-splash');
+            document.body.style.overflow = 'hidden';
+        }
     });
-
-    console.log(more);
-    console.log(overlay);
-    console.log(close);
-    console.log(descrBtn);
-    console.log(descrBtn2);
 
     // Отправка формы ===========================================================================
 
@@ -144,6 +139,7 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     let form = document.querySelector('.main-form'),
+        form2 = document.querySelector('#form'),
         input = form.getElementsByTagName('input'),
         statusMessage = document.createElement('div');
 
@@ -159,8 +155,18 @@ window.addEventListener('DOMContentLoaded', function () {
 
         let formData = new FormData(form);
         request.send(formData);
+    });
 
+    form2.addEventListener('submit', function (event) {
+        event.preventDefault();
+        form2.appendChild(statusMessage);
 
+        let request = new XMLHttpRequest();
+        request.open('POST', 'server.php');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        let formData = new FormData(form2);
+        request.send(formData);
     });
 
 
