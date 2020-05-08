@@ -169,7 +169,61 @@ window.addEventListener('DOMContentLoaded', function () {
         request.send(formData);
     });
 
+    // Слайдер ===========================================================================
 
+    let sladeIndex = 1,
+        slides = document.querySelectorAll('.slider-item'),
+        prev = document.querySelector('.prev'),
+        next = document.querySelector('.next'),
+        dotsWrap = document.querySelector('.slider-dots'),
+        dots = document.querySelectorAll('.dot');
+
+    showSlides(sladeIndex);
+
+    function showSlides(n) {
+
+        console.log(n);
+
+        sladeIndex = n; 
+
+        if (n > slides.length) {
+            sladeIndex = 1;
+        } else if (n < 1) {
+            sladeIndex = slides.length;
+        }
+
+        slides.forEach((item) => item.style.display = 'none');
+        dots.forEach((item) => item.classList.remove('dot-active'));
+
+        slides[sladeIndex - 1].style.display = 'block';
+        dots[sladeIndex - 1].classList.add('dot-active');
+    }
+
+    function plusSlide(n) {
+        showSlides(sladeIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(sladeIndex = n);
+        console.log(n);
+    }
+
+    prev.addEventListener('click', function () {
+        plusSlide(-1);
+    });
+
+    next.addEventListener('click', function () {
+        plusSlide(1);
+    });
+
+    dotsWrap.addEventListener('click', function (event) {
+        for (let i = 0; i < dots.length + 1; i++) {
+            if (event.target.classList.contains('dot') && event.target == dots[i - 1]) {
+                currentSlide(i);
+                console.log(i);
+            }
+        }
+    });
 
 
 });
