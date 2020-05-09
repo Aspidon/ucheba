@@ -181,10 +181,7 @@ window.addEventListener('DOMContentLoaded', function () {
     showSlides(sladeIndex);
 
     function showSlides(n) {
-
-        console.log(n);
-
-        sladeIndex = n; 
+        sladeIndex = n;
 
         if (n > slides.length) {
             sladeIndex = 1;
@@ -205,7 +202,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function currentSlide(n) {
         showSlides(sladeIndex = n);
-        console.log(n);
     }
 
     prev.addEventListener('click', function () {
@@ -220,8 +216,59 @@ window.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < dots.length + 1; i++) {
             if (event.target.classList.contains('dot') && event.target == dots[i - 1]) {
                 currentSlide(i);
-                console.log(i);
             }
+        }
+    });
+
+
+    // Калькулятор ===========================================================================
+
+    let persons = document.querySelectorAll('.counter-block-input')[0],
+        restDay = document.querySelectorAll('.counter-block-input')[1],
+        place = document.getElementById('select'),
+        totalValue = document.getElementById('total'),
+        personsSum = 0,
+        daySum = 0,
+        selectSity = 0,
+        total = 0;
+
+        persons.value = '';
+        restDay.value = '';
+
+    totalValue.innerHTML = 0;
+
+    console.log('Изначальный: ' + selectSity);
+
+    persons.addEventListener('change', function () {
+        personsSum = +this.value;
+        selectSity = place.options[place.selectedIndex].value;
+        total = (daySum + personsSum) * 4000;
+
+        if (restDay.value == '' || persons.value == '') {
+            totalValue.innerHTML = 0;
+        } else {
+            totalValue.innerHTML = total * selectSity;
+        }
+    });
+
+    restDay.addEventListener('change', function () {
+        daySum = +this.value;
+        selectSity = place.options[place.selectedIndex].value;
+        total = (daySum + personsSum) * 4000;
+            
+        if (restDay.value == '' || persons.value == '') {
+            totalValue.innerHTML = 0;
+        } else {
+            totalValue.innerHTML = total * selectSity;
+        }
+    });
+
+    place.addEventListener('change', function () {
+        if (restDay.value == '' || persons.value == '') {
+            totalValue.innerHTML = 0;
+        } else {
+            let a = total;
+            totalValue.innerHTML = a * this.options[this.selectedIndex].value;
         }
     });
 
